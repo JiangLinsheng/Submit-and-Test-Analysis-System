@@ -1,21 +1,21 @@
 <template>
   <div>
-    <el-row style="background-color: white">
+    <el-row class="row-1">
       <el-col>
-        <label style="font-family: 微软雅黑;font-size: large">项目管理</label>
+        <label class="label-1">项目管理</label>
       </el-col>
     </el-row>
-    <div style="background-color: white;padding-top: 20px">
+    <div class="div-1">
       <el-row>
         <el-col>
           <el-button type="primary" @click="dialogFormVisible = true">添加项目</el-button>
         </el-col>
       </el-row>
-      <el-row style="margin-top: 10px">
+      <el-row class="row-2">
         <el-col>
           <el-table
             :data="tableData"
-            style="width: 100%">
+            class="table-1">
             <el-table-column
               prop="projectname"
               label="项目">
@@ -52,8 +52,10 @@
 </template>
 
 <script>
+import {addProject, deleteProject, getProjectInfo} from '../api/project-manage.ts'
+
 export default {
-  name: 'projectManage',
+  name: 'ProjectManage',
   data () {
     return {
       tableData: [],
@@ -82,36 +84,28 @@ export default {
         .catch(_ => {})
     },
     handleDelete (index, row) {
-      this.$axios.post('http://localhost:7300/mock/5f22bb4294e2122bb80ffbec/stms/deleteProject', {projectname: row.projectname}).then(ret => {
+      deleteProject({projectname: row.projectname}).then(ret => {
         console.log(ret.data.data)
-        if (ret.data.data === '删除项目成功') {
-          this.$message({
-            message: '删除项目成功',
-            type: 'success'
-          })
-        } else {
-          this.$message.error('删除项目失败')
-        }
+        this.$message({
+          message: '删除项目——' + ret.data.data + '——成功',
+          type: 'success'
+        })
       })
     },
     onSubmit (ruleForm) {
       const that = this
-      that.$refs[ruleForm].validate((valid) => {
+      this.$refs[ruleForm].validate((valid) => {
         if (valid) {
-          that.dialogFormVisible = false
-          this.$axios.post('http://localhost:7300/mock/5f22bb4294e2122bb80ffbec/stms/addProject', {
-            projectname: that.form.projectName,
-            keyword: that.form.keyWord
+          this.dialogFormVisible = false
+          addProject({
+            projectname: this.form.projectName,
+            keyword: this.form.keyWord
           }).then(function (ret) {
             console.log(ret.data.data)
-            if (ret.data.data === '添加项目成功') {
-              that.$message({
-                message: '添加项目成功',
-                type: 'success'
-              })
-            } else {
-              that.$message.error('添加项目失败')
-            }
+            that.$message({
+              message: '添加项目——' + ret.data.data.projectname + '——成功',
+              type: 'success'
+            })
           })
         } else {
           console.log('error submit!!')
@@ -121,14 +115,17 @@ export default {
     }
   },
   created () {
-    const that = this
-    this.$axios.get('http://localhost:7300/mock/5f22bb4294e2122bb80ffbec/stms/getProjectInfo').then(res => {
-      that.tableData = res.data.project
+    getProjectInfo().then(res => {
+      this.tableData = res.data.project
     })
   }
 }
 </script>
 
 <style scoped>
-
+  .row-1{background-color: white}
+  .row-2{margin-top: 10px}
+  .label-1{font-family: 微软雅黑;font-size: large}
+  .div-1{background-color: white;padding-top: 20px}
+  .table-1{width: 100%}
 </style>

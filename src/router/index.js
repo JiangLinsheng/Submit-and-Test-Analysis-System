@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login'
-import home from '../components/home'
-import staffmanage from '../components/staffmanage'
-import projectManage from '../components/projectManage'
-import stManage from '../components/stManage'
+import UserLogin from '../components/UserLogin'
+import UserHome from '../components/UserHome'
+import UserManage from '../components/UserManage'
+import ProjectManage from '../components/ProjectManage'
+import StInfoManage from '../components/StInfoManage'
 
 Vue.use(Router)
 
@@ -12,32 +12,32 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/Login'
+      redirect: '/UserLogin'
     },
     {
-      path: '/Login',
-      name: 'Login',
-      component: Login
+      path: '/UserLogin',
+      name: 'UserLogin',
+      component: UserLogin
     },
     {
-      path: '/home',
-      name: 'home',
-      component: home,
+      path: '/UserHome',
+      name: 'UserHome',
+      component: UserHome,
       children: [
         {
-          path: '/staffmanage',
-          name: 'staffmanage',
-          component: staffmanage
+          path: '/UserManage',
+          name: 'UserManage',
+          component: UserManage
         },
         {
-          path: '/projectManage',
-          name: 'projectManage',
-          component: projectManage
+          path: '/ProjectManage',
+          name: 'ProjectManage',
+          component: ProjectManage
         },
         {
-          path: '/stManage',
-          name: 'stManage',
-          component: stManage
+          path: '/StInfoManage',
+          name: 'StInfoManage',
+          component: StInfoManage
         }
       ]
     }
