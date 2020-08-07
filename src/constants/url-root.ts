@@ -1,1 +1,1 @@
-export const DM_NODE_URL_ROOT = 'http://localhost:7300/mock/5f22bb4294e2122bb80ffbec/stms'
+export const DM_NODE_URL_ROOT = 'https://www.easy-mock.com/mock/5f2d2425e1defd2b723b5258/stms'
