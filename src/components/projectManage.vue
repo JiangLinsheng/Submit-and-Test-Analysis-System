@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row class="row-1">
+    <el-row type="flex" align="middle" class="row-1">
       <el-col>
         <label class="label-1">项目管理</label>
       </el-col>
@@ -8,14 +8,15 @@
     <div class="div-1">
       <el-row>
         <el-col>
-          <el-button type="primary" @click="dialogFormVisible = true">添加项目</el-button>
+          <el-button class="button-1" type="primary" @click="dialogFormVisible = true">添加项目</el-button>
         </el-col>
       </el-row>
       <el-row class="row-2">
         <el-col>
           <el-table
             :data="tableData"
-            class="table-1">
+            class="table-1"
+            :header-cell-style="headerCellStyle">
             <el-table-column
               prop="projectname"
               label="项目">
@@ -34,15 +35,17 @@
         </el-col>
       </el-row>
     </div>
-    <el-dialog title="添加项目" :visible.sync="dialogFormVisible" :before-close="handleClose">
+    <el-dialog title="添加项目" width="30%" :visible.sync="dialogFormVisible" :before-close="handleClose">
+      <el-divider></el-divider>
       <el-form :model="form" :rules="rules" ref="form">
         <el-form-item label="项目" :label-width="formLabelWidth" prop="projectName">
-          <el-input v-model="form.projectName" autocomplete="off"></el-input>
+          <el-input v-model="form.projectName" autocomplete="off" class="el-input-width"></el-input>
         </el-form-item>
         <el-form-item label="关键字" :label-width="formLabelWidth" prop="keyWord">
-          <el-input v-model="form.keyWord" autocomplete="off"></el-input>
+          <el-input v-model="form.keyWord" autocomplete="off" class="el-input-width"></el-input>
         </el-form-item>
       </el-form>
+      <el-divider></el-divider>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
@@ -61,6 +64,7 @@ export default {
       tableData: [],
       dialogFormVisible: false,
       formLabelWidth: '120px',
+      headerCellStyle: {background: '#eef1f6', color: '#606266'},
       form: {
         projectName: '',
         keyWord: ''
@@ -123,9 +127,11 @@ export default {
 </script>
 
 <style scoped>
-  .row-1{background-color: white}
-  .row-2{margin-top: 10px}
-  .label-1{font-family: 微软雅黑;font-size: large}
-  .div-1{background-color: white;padding-top: 20px}
+  .row-1{background-color: white;margin-top: -20px;height: 50px}
+  .row-2{margin-top: 20px;margin-left: 20px;margin-right: 20px}
+  .label-1{font-family: 微软雅黑;font-size: large;margin-left: 20px}
+  .div-1{background-color: white;margin-top: 20px;margin-left: 20px;margin-right: 20px}
   .table-1{width: 100%}
+  .button-1{margin-left: 20px;margin-top: 20px}
+  .el-input-width{width: 300px}
 </style>

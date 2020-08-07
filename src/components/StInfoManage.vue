@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row class=row-1>
+    <el-row type="flex" align="middle" class=row-1>
       <el-col>
         <label class="label-1">提测管理</label>
       </el-col>
@@ -8,14 +8,15 @@
     <div class="div-1">
       <el-row>
         <el-col>
-          <el-button type="primary" @click="addStInfo">添加</el-button>
+          <el-button class="button-1" type="primary" @click="addStInfo">添加</el-button>
         </el-col>
       </el-row>
       <el-row class="row-2">
         <el-col>
           <el-table
             :data="tableData"
-            style="width: 100%">
+            :header-cell-style="headerCellStyle"
+            class="table-1">
             <el-table-column
               prop="projectname"
               label="项目">
@@ -49,7 +50,8 @@
         </el-col>
       </el-row>
     </div>
-    <el-dialog :title="dialogTitle" :visible.sync="addFormVisible" :before-close="handleClose">
+    <el-dialog :title="dialogTitle" width="30%" :visible.sync="addFormVisible" :before-close="handleClose">
+      <el-divider></el-divider>
       <el-form :model="addForm" :rules="addRules" ref="addForm">
         <el-form-item label="项目" :label-width="formLabelWidth" prop="projectName">
           <el-select v-model="addForm.projectName" placeholder="请选择">
@@ -72,17 +74,24 @@
           </el-select>
         </el-form-item>
       </el-form>
+      <el-divider></el-divider>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancelSubmit">取 消</el-button>
         <el-button type="primary" @click="submit('addForm')">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="更新状态" :visible.sync="stepVisible" :before-close="handleClose">
-      <el-steps :active="stepActive" finish-status="success" simple>
+    <el-dialog title="更新状态" width="60%" :visible.sync="stepVisible" :before-close="handleClose">
+      <el-divider></el-divider>
+      <el-steps :active="stepActive" finish-status="success">
         <el-step title="开启(open)" ></el-step>
-        <el-step title="进行中(ongoing)" ></el-step>
+        <el-step title="内测(innTest)" ></el-step>
+        <el-step title="提测发布(release)" ></el-step>
+        <el-step title="驳回(reject)" ></el-step>
+        <el-step title="暂停(suspend)" ></el-step>
         <el-step title="结束(end)" ></el-step>
+        <el-step title="停止(stop)" ></el-step>
       </el-steps>
+      <el-divider></el-divider>
       <div slot="footer" class="dialog-footer">
         <el-button @click="next">更新状态</el-button>
         <el-button type="primary" @click="complete">完成</el-button>
@@ -109,6 +118,7 @@ export default {
       versions: ['v1.0.0', 'v2.0.0', 'v3.0.0'],
       dialogTitle: '',
       stepActive: '',
+      headerCellStyle: {background: '#eef1f6', color: '#606266'},
       addForm: {
         projectName: '',
         version: '',
@@ -141,15 +151,29 @@ export default {
         .catch(_ => {})
     },
     defectAnalysis (index, row) {
+      this.$router.push({
+        path: '/DefectAnalysis',
+        query: {
+          projectName: row.projectname
+        }
+      })
     },
     handelStatus (index, row) {
       this.stepVisible = true
       if (row.status === 'open') {
         this.stepActive = 1
-      } else if (row.status === 'ongoing') {
+      } else if (row.status === 'innTest') {
         this.stepActive = 2
-      } else if (row.status === 'end') {
+      } else if (row.status === 'release') {
         this.stepActive = 3
+      } else if (row.status === 'reject') {
+        this.stepActive = 4
+      } else if (row.status === 'suspend') {
+        this.stepActive = 5
+      } else if (row.status === 'end') {
+        this.stepActive = 6
+      } else if (row.status === 'stop') {
+        this.stepActive = 7
       }
     },
     handleEdit (index, row) {
@@ -233,7 +257,7 @@ export default {
       this.addForm.inntester = ''
     },
     next () {
-      if (this.stepActive++ > 2) this.stepActive = 0
+      if (this.stepActive++ > 6) this.stepActive = 0
     },
     complete () {
       const that = this
@@ -269,8 +293,10 @@ export default {
 </script>
 
 <style scoped>
-  .row-1{background-color: white}
-  .row-2{margin-top: 10px}
-  .label-1{font-family: 微软雅黑;font-size: large}
-  .div-1{background-color: white;padding-top: 20px}
+  .row-1{background-color: white;margin-top: -20px;height: 50px}
+  .row-2{margin-top: 20px;margin-left: 20px;margin-right: 20px}
+  .label-1{font-family: 微软雅黑;font-size: large;margin-left: 20px}
+  .div-1{background-color: white;margin-top: 20px;margin-left: 20px;margin-right: 20px}
+  .button-1{margin-left: 20px;margin-top: 20px}
+  .table-1{width: 100%}
 </style>

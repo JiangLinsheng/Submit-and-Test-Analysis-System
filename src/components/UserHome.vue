@@ -8,9 +8,9 @@
         text-color="#fff"
         active-text-color="#409EFF"
         :router=true>
-        <el-row type="flex" justify="start">
+        <el-row type="flex" justify="start" align="middle">
           <el-col :span="2"><img src="../assets/logo.png"></el-col>
-          <el-col :span="2" id="col-1"><label class="label-1">提测分析系统</label></el-col>
+          <el-col :span="2"><label class="label-1">提测分析系统</label></el-col>
           <el-col :span="2">
             <el-submenu :index="homeRouter[0]">
             <template slot="title">人员管理</template>
@@ -25,9 +25,9 @@
             </el-submenu>
           </el-col>
           <el-col :span="2">
-            <el-submenu :index="homeRouter[2]">
+            <el-submenu :index="homeRouter[3]">
               <template slot="title">分析</template>
-              <el-menu-item>仪表盘</el-menu-item>
+              <el-menu-item :index="homeRouter[3]">仪表盘</el-menu-item>
             </el-submenu>
           </el-col>
         </el-row>
@@ -47,7 +47,8 @@ export default {
       homeRouter: [
         '/UserManage',
         '/ProjectManage',
-        '/StInfoManage'
+        '/StInfoManage',
+        '/DashBoard'
       ]
     }
   }
@@ -55,6 +56,5 @@ export default {
 </script>
 
 <style scoped>
-  #col-1{margin-top: 15px}
   .label-1{color: white;font-size: large}
 </style>

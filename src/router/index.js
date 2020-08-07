@@ -5,6 +5,8 @@ import UserHome from '../components/UserHome'
 import UserManage from '../components/UserManage'
 import ProjectManage from '../components/ProjectManage'
 import StInfoManage from '../components/StInfoManage'
+import DefectAnalysis from '../components/DefectAnalysis'
+import DashBoard from '../components/DashBoard'
 
 Vue.use(Router)
 
@@ -38,6 +40,16 @@ export default new Router({
           path: '/StInfoManage',
           name: 'StInfoManage',
           component: StInfoManage
+        },
+        {
+          path: '/DefectAnalysis',
+          name: 'DefectAnalysis',
+          component: DefectAnalysis
+        },
+        {
+          path: '/DashBoard',
+          name: 'DashBoard',
+          component: DashBoard
         }
       ]
     }

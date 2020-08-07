@@ -55,3 +55,14 @@ export const updateStatus = (data) => {
     data: data
   })
 }
+
+/**
+ * 查询项目缺陷分析信息
+ */
+export const getProjectDefectAnalysis = (data) => {
+  return axios({
+    method: 'post',
+    url: `${Constants.DM_NODE_URL_ROOT}/getProjectDefectAnalysis`,
+    data: data
+  })
+}
