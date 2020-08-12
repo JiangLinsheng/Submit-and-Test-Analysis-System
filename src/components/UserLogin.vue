@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      const that = this
+      let that = this
       validateLogin({username: this.form.name, password: this.form.password}).then(function (ret) {
         if (ret.data.data === true) {
           that.$message({

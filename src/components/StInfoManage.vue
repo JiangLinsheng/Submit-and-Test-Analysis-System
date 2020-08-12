@@ -208,7 +208,7 @@ export default {
       this.dialogTitle = '添加'
     },
     submit (ruleForm) {
-      const that = this
+      let that = this
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           this.addFormVisible = false
@@ -260,7 +260,7 @@ export default {
       if (this.stepActive++ > 6) this.stepActive = 0
     },
     complete () {
-      const that = this
+      let that = this
       this.stepVisible = false
       updateStatus({
         stepActive: this.stepActive
@@ -277,13 +277,13 @@ export default {
       this.tableData = res.data.stinfo
     })
     getUserInfo().then(res => {
-      const users = res.data.user
+      let users = res.data.user
       for (let i = 0; i < users.length; i++) {
         this.user[i] = users[i].name
       }
     })
     getProjectInfo().then(res => {
-      const projects = res.data.project
+      let projects = res.data.project
       for (let i = 0; i < projects.length; i++) {
         this.project[i] = projects[i].projectname
       }

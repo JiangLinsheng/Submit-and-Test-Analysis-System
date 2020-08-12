@@ -245,10 +245,10 @@ export default {
       this.dialogVisible = false
     },
     getEchartData () {
-      const chart = this.$refs.chart
-      const myChart = this.$echarts.init(chart)
+      let chart = this.$refs.chart
+      let myChart = this.$echarts.init(chart)
       if (chart) {
-        const option = {
+        let option = {
           tooltip: {
             show: true
           },

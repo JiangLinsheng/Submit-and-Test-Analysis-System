@@ -97,7 +97,7 @@ export default {
       })
     },
     onSubmit (ruleForm) {
-      const that = this
+      let that = this
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           this.dialogFormVisible = false
